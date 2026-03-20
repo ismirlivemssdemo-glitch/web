@@ -136,6 +136,14 @@ body {
 .interpolation-panel .interpolation-image {
   width: 100%;
   border-radius: 5px;
+  max-height: 600px;
+  object-fit: contain;
+}
+
+.interpolation-panel .interpolation-image + p {
+  font-size: 0.85rem;
+  margin-top: 8px;
+  color: #666;
 }
 
 .interpolation-video-column {
@@ -154,4 +162,18 @@ body {
 }
 #interpolation-image-wrapper img {
   border-radius: 5px;
+}
+
+/* Figure styling */
+.column.has-text-centered .interpolation-image {
+  max-height: 700px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.column.has-text-centered .interpolation-image + p {
+  font-size: 0.75rem;
+  margin-top: 8px;
+  color: #888;
 }
