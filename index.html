@@ -61,7 +61,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">CrowdioSet and PaRIRset: Two datasets towards Live Music Source Separation</h1>
+          <h1 class="title is-1 publication-title">CrowdioSet and PaRIRset: Two Datasets Towards Live Music Source Separation</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">Author1,</span>
             <span class="author-block">Author2,</span>
@@ -100,27 +100,27 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column">
-          <video poster="" id="fullbody" controls loop playsinline height="300">
+          <video poster="" id="v1_mixture" controls loop playsinline height="300">
             <source src="./static/videos/v1_mixture.mp4"
-                    type="video/quicktime">
+                    type="video/mp4">
           </video>
         </div>
         <div class="column">
-          <video poster="" id="steve" controls loop playsinline height="300">
+          <video poster="" id="v1_baseline" controls loop playsinline height="300">
             <source src="./static/videos/v1_baseline.mp4"
-                    type="video/quicktime">
+                    type="video/mp4">
           </video>
         </div>
         <div class="column">
-          <video poster="" id="chair-tp" controls loop playsinline height="300">
+          <video poster="" id="v1_vocals" controls loop playsinline height="300">
             <source src="./static/videos/v1_vocals.mp4"
-                    type="video/quicktime">
+                    type="video/mp4">
           </video>
         </div>
         <div class="column">
-          <video poster="" id="shiba" controls loop playsinline height="300">
+          <video poster="" id="v1_audience" controls loop playsinline height="300">
             <source src="./static/videos/v1_audience.mp4"
-                    type="video/quicktime">
+                    type="video/mp4">
           </video>
         </div>
       </div>
@@ -137,24 +137,12 @@
         <div class="content has-text-justified">
           <h2 class="title is-3">Abstract</h2>
           <p>
-            Most Music Source Separation (MSS) models do not generalize well 
-            to live music recordings because they are trained on studio recordings alone, 
-            disregarding the venue acoustics, the speaker system's response and audience noise. 
-            We propose to bridge this gap by providing and training a model on two novel datasets. 
+            Most Music Source Separation (MSS) models do not generalize well to live music recordings because they are trained on studio recordings alone, disregarding the venue acoustics, the speaker system's response and audience noise. We propose to bridge this gap by providing and training a model on two novel datasets.
           </p>
-          <p>
-            First, we present PaRIRset, a stereo impulse response dataset captured across 60  professional 
-            concert venues using a microphone array. Our results show that  adding PaRIRset RIRs increases 
-            the performance of MSS models compared to using real general purpose RIRs from Speech Enhancement 
-            tasks alone. 
-          </p>
-          <p>
-            Second, we introduce CrowdioSet: a synthetic noise dataset comprising 6000 real ambience tracks 
-            from FreeSound as well as synthetic sing-alongs for the vocals in MUSDB18 and MOISESDB datasets, 
-            generated from zero-shot singing voice conversions. Training on CrowdioSet allows to separate the 
-            audience from live music recordings. We make our baseline model publicly available, as well as 
-            PaRIRset and CrowdiosSet.
-          </p>
+          <ol>
+            <li>We present <strong>CrowdioSet</strong>: a noise dataset comprising 4800 real ambience tracks from Freesound and synthetic sing-alongs for the vocals in MUSDB18 and MOISESDB datasets, generated from zero-shot singing voice conversions. CrowdioSet enables effective audio denoising for live recordings, resulting in superior separation both in objective and subjective evaluations.</li>
+            <li>We introduce <strong>PaRIRset</strong>: a stereo impulse response dataset captured across 40 professional concert venues using a microphone array. Our results show that adding PaRIRset RIRs increases the performance of a MSS model compared to using real RIRs from Speech Enhancement tasks alone. We make the examples, code, model weights, PaRIRset, and CrowdioSet freely available to the public.</li>
+          </ol>
         </div>
       </div>
       <!--/ Abstract. -->
@@ -170,6 +158,730 @@
     </div>
   </div>
 </section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column">
+          <video poster="" id="v2_mixture" controls loop playsinline height="300">
+            <source src="./static/videos/v2_mixture.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="column">
+          <video poster="" id="v2_baseline" controls loop playsinline height="300">
+            <source src="./static/videos/v2_baseline.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="column">
+          <video poster="" id="v2_vocals" controls loop playsinline height="300">
+            <source src="./static/videos/v2_vocals.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="column">
+          <video poster="" id="v2_audience" controls loop playsinline height="300">
+            <source src="./static/videos/v2_audience.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-vcentered">
+      <div class="column is-half">
+        <div class="content has-text-justified">
+          <h2 class="title is-3">CrowdioSet</h2>
+          <p>
+            We have synthesized preliminary sing-alongs for every one of the 384 <em>vocals</em> stems in MUSDB18HQ and MOISESDB by combining two techniques. First, we have applied the Antares AVOX Choir plugin (an effect that combines vibrato, detuning and delay) in its 32-voice configuration to each <em>vocals</em> stem. 
+          </p>
+          <p>
+            Second, we have sourced a pool of 200 vocal samples from Freesound using the queries <em>a cappella</em> and <em>vocals</em>, and used each to convert every <em>vocals</em> stem using the pre-trained zero-shot voice conversion model HQ-SVC.
+          </p>
+          <p>
+            We have downloaded 11375 audio files from Freesound using the queries <em>crowd</em>, <em>audience</em>,<em>cheering  </em>, <em>applause</em>, <em>chatter</em>, and <em>protest</em>.
+          </p>
+        </div>
+      </div>
+      <div class="column is-half has-text-centered">
+        <img src="./static/images/crowdioset.png"
+              class="interpolation-image"
+              alt="crowdioset"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h3 class="title is-4">CrowdioSet Audio Example</h3>
+
+    <div class="columns">
+      <div class="column has-text-centered">
+        <p><strong>MOISESDB mixture</strong></p>
+        <audio controls style="width:100%"><source src="./static/audios/crowdioset_samples/mixture.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column has-text-centered">
+        <p><strong>Original vocals</strong> </p>
+        <audio controls style="width:100%"><source src="./static/audios/crowdioset_samples/vocals.mp3" type="audio/mpeg"></audio>
+      </div>
+    </div>
+
+    <p class="mt-5 mb-2"><strong>Five zero-shot voice conversions</strong> (HQ-SVC) used to synthesise sing-alongs:</p>
+    <div class="columns is-mobile is-multiline">
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/crowdioset_samples/v1.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/crowdioset_samples/v2.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/crowdioset_samples/v3.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/crowdioset_samples/v4.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/crowdioset_samples/v5.mp3" type="audio/mpeg"></audio>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="column has-text-centered">
+        <p>HQ-SVC mix</p>
+        <audio controls style="width:100%"><source src="./static/audios/crowdioset_samples/hqsvc.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column has-text-centered">
+        <p>AVOX Choir</p>
+        <audio controls style="width:100%"><source src="./static/audios/crowdioset_samples/avox.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column has-text-centered">
+        <p>Freesound Noise</p>
+        <audio controls style="width:100%"><source src="./static/audios/crowdioset_samples/noise.mp3" type="audio/mpeg"></audio>
+      </div>
+    </div>
+
+    <p class="mt-5 mb-2"><strong>Final live mixture</strong> (everything combined):</p>
+    <audio controls style="width:100%"><source src="./static/audios/crowdioset_samples/live_mixture.mp3" type="audio/mpeg"></audio>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-vcentered">
+      <div class="column is-half">
+        <div class="content has-text-justified">
+          <h2 class="title is-3">PaRIRset</h2>
+          <p>
+            We have synthesized preliminary sing-alongs for every one of the 384 <em>vocals</em> stems in MUSDB18HQ and MOISESDB by combining two techniques. First, we have applied the Antares AVOX Choir plugin (an effect that combines vibrato, detuning and delay) in its 32-voice configuration to each <em>vocals</em> stem. 
+          </p>
+          <p>
+            Second, we have sourced a pool of 200 vocal samples from Freesound using the queries <em>a cappella</em> and <em>vocals</em>, and used each to convert every <em>vocals</em> stem using the pre-trained zero-shot voice conversion model HQ-SVC.
+          </p>
+          <p>
+            We have downloaded 11375 audio files from Freesound using the queries <em>crowd</em>, <em>audience</em>,<em>cheering  </em>, <em>applause</em>, <em>chatter</em>, and <em>protest</em>.
+          </p>
+        </div>
+      </div>
+      <div class="column is-half has-text-centered">
+        <img src="./static/images/sestup_picture.png"
+              class="interpolation-image"
+              alt="crowdioset"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h3 class="title is-4">PaRIRset Audio Examples</h3>
+
+    <p class="mb-2"><strong>MUSDB18HQ mixture</strong> (no RIR applied):</p>
+    <audio controls style="width:100%"><source src="./static/audios/parirset_samples/mixture.mp3" type="audio/mpeg"></audio>
+
+    <p class="mt-5 mb-2"><strong> Mixture  ⊛  Speech Enhancement RIRs</strong> :</p>
+    <div class="columns is-mobile is-multiline">
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/parirset_samples/orev1.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/parirset_samples/orev2.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/parirset_samples/orev3.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/parirset_samples/orev4.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/parirset_samples/orev5.mp3" type="audio/mpeg"></audio>
+      </div>
+    </div>
+
+    <p class="mt-5 mb-2"><strong>Mixture  ⊛  PaRIRset RIRs</strong> (ours):</p>
+    <div class="columns is-mobile is-multiline">
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/parirset_samples/ours1.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/parirset_samples/ours2.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/parirset_samples/ours3.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/parirset_samples/ours4.mp3" type="audio/mpeg"></audio>
+      </div>
+      <div class="column is-one-fifth has-text-centered">
+        <audio controls style="width:100%"><source src="./static/audios/parirset_samples/ours5.mp3" type="audio/mpeg"></audio>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-vcentered">
+      <div class="column is-half">
+        <div class="content has-text-justified">
+          <h2 class="title is-3">Results</h2>
+          <p>
+            We have trained four models, each corresponding to a different training dataset configuration, which we refer to as <em>clean</em>, <em>rev</em>, <em>noisy</em>, and <em>noisyrev</em> respectively. The training datasets for each model are as follows:
+          </p>
+          <ul>
+            <li><strong>clean</strong>: MUSDB18HQ + MOISESDB;</li>
+            <li><strong>rev</strong>: (MUSDB18HQ + MOISESDB) ⊛ PaRIRset;</li>
+            <li><strong>noisy</strong>: MUSDB18HQ + MOISESDB + CrowdioSet;</li>
+            <li><strong>noisyrev</strong>: (MUSDB18HQ + MOISESDB + CrowdioSet) ⊛ PaRIRset.</li>
+          </ul>
+          <p>
+            For evaluation we have used the MUSDB18HQ test set, using our manually mixed <em>audience</em> stems test set and the PaRIRset test set. The same degradations that we have proposed for the training data were applied to the test data: we have evaluated each model under the four evaluation conditions <em>clean</em>, <em>rev</em>, <em>noisy</em>, <em>noisyrev</em>.
+          </p>
+          <p>
+            In addition, we have included SAM Audio to provide a baseline capable of audience isolation. We have included it in its textual prompting mode, taking the SAM Audio Large pre-trained variant, using the text queries <em>&ldquo;vocals&rdquo;</em>, <em>&ldquo;drums&rdquo;</em>, <em>&ldquo;bass&rdquo;</em>, <em>&ldquo;other&rdquo;</em>, and <em>&ldquo;crowd&rdquo;</em>
+          </p>
+        </div>
+      </div>
+      <div class="column is-half has-text-centered">
+        <img src="./static/images/results.png"
+              class="interpolation-image"
+              alt="results"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Audio Samples</h2>
+
+    
+    <h3 class="title is-4">Sample 1</h3>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-fullwidth has-text-centered">
+        <thead>
+          <tr>
+            <th><strong>Mixture</strong></th>
+            <th colspan="5"><audio controls style="width:100%"><source src="./static/audios/sample1/mixture.mp3" type="audio/mpeg"></audio></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>Vocals</th>
+            <th>Drums</th>
+            <th>Bass</th>
+            <th>Other</th>
+            <th>Audience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>clean</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/clean_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/clean_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/clean_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/clean_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>rev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/rev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/rev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/rev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/rev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>noisy</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/noisy_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/noisy_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/noisy_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/noisy_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/noisy_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>noisyrev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/noisyrev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/noisyrev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/noisyrev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/noisyrev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/noisyrev_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>SAM Audio</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/sam_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/sam_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/sam_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/sam_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample1/sam_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <h3 class="title is-4">Sample 2</h3>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-fullwidth has-text-centered">
+        <thead>
+          <tr>
+            <th><strong>Mixture</strong></th>
+            <th colspan="5"><audio controls style="width:100%"><source src="./static/audios/sample2/mixture.mp3" type="audio/mpeg"></audio></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>Vocals</th>
+            <th>Drums</th>
+            <th>Bass</th>
+            <th>Other</th>
+            <th>Audience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>clean</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/clean_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/clean_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/clean_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/clean_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>rev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/rev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/rev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/rev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/rev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>noisy</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/noisy_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/noisy_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/noisy_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/noisy_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/noisy_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>noisyrev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/noisyrev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/noisyrev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/noisyrev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/noisyrev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/noisyrev_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>SAM Audio</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/sam_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/sam_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/sam_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/sam_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample2/sam_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+        <h3 class="title is-4">Sample 3</h3>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-fullwidth has-text-centered">
+        <thead>
+          <tr>
+            <th><strong>Mixture</strong></th>
+            <th colspan="5"><audio controls style="width:100%"><source src="./static/audios/sample3/mixture.mp3" type="audio/mpeg"></audio></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>Vocals</th>
+            <th>Drums</th>
+            <th>Bass</th>
+            <th>Other</th>
+            <th>Audience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>clean</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/clean_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/clean_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/clean_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/clean_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>rev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/rev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/rev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/rev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/rev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>noisy</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/noisy_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/noisy_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/noisy_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/noisy_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/noisy_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>noisyrev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/noisyrev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/noisyrev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/noisyrev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/noisyrev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/noisyrev_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>SAM Audio</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/sam_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/sam_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/sam_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/sam_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample3/sam_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="title is-4">Sample 4</h3>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-fullwidth has-text-centered">
+        <thead>
+          <tr>
+            <th><strong>Mixture</strong></th>
+            <th colspan="5"><audio controls style="width:100%"><source src="./static/audios/sample4/mixture.mp3" type="audio/mpeg"></audio></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>Vocals</th>
+            <th>Drums</th>
+            <th>Bass</th>
+            <th>Other</th>
+            <th>Audience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>clean</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/clean_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/clean_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/clean_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/clean_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>rev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/rev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/rev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/rev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/rev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>noisy</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/noisy_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/noisy_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/noisy_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/noisy_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/noisy_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>noisyrev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/noisyrev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/noisyrev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/noisyrev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/noisyrev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/noisyrev_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>SAM Audio</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/sam_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/sam_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/sam_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/sam_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample4/sam_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="title is-4">Sample 5</h3>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-fullwidth has-text-centered">
+        <thead>
+          <tr>
+            <th><strong>Mixture</strong></th>
+            <th colspan="5"><audio controls style="width:100%"><source src="./static/audios/sample6/mixture.mp3" type="audio/mpeg"></audio></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>Vocals</th>
+            <th>Drums</th>
+            <th>Bass</th>
+            <th>Other</th>
+            <th>Audience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>clean</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/clean_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/clean_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/clean_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/clean_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>rev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/rev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/rev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/rev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/rev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>noisy</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/noisy_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/noisy_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/noisy_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/noisy_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/noisy_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>noisyrev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/noisyrev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/noisyrev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/noisyrev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/noisyrev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/noisyrev_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>SAM Audio</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/sam_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/sam_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/sam_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/sam_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample6/sam_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="title is-4">Sample 6</h3>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-fullwidth has-text-centered">
+        <thead>
+          <tr>
+            <th><strong>Mixture</strong></th>
+            <th colspan="5"><audio controls style="width:100%"><source src="./static/audios/sample5/mixture.mp3" type="audio/mpeg"></audio></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>Vocals</th>
+            <th>Drums</th>
+            <th>Bass</th>
+            <th>Other</th>
+            <th>Audience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>clean</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/clean_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/clean_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/clean_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/clean_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>rev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/rev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/rev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/rev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/rev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>noisy</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/noisy_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/noisy_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/noisy_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/noisy_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/noisy_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>noisyrev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/noisyrev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/noisyrev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/noisyrev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/noisyrev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/noisyrev_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>SAM Audio</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/sam_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/sam_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/sam_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/sam_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample5/sam_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+        <h3 class="title is-4">Sample 7</h3>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-fullwidth has-text-centered">
+        <thead>
+          <tr>
+            <th><strong>Mixture</strong></th>
+            <th colspan="5"><audio controls style="width:100%"><source src="./static/audios/sample7/mixture.mp3" type="audio/mpeg"></audio></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>Vocals</th>
+            <th>Drums</th>
+            <th>Bass</th>
+            <th>Other</th>
+            <th>Audience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>clean</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/clean_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/clean_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/clean_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/clean_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>rev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/rev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/rev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/rev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/rev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>noisy</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/noisy_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/noisy_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/noisy_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/noisy_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/noisy_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>noisyrev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/noisyrev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/noisyrev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/noisyrev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/noisyrev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/noisyrev_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>SAM Audio</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/sam_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/sam_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/sam_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/sam_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample7/sam_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="title is-4">Sample 8</h3>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-fullwidth has-text-centered">
+        <thead>
+          <tr>
+            <th><strong>Mixture</strong></th>
+            <th colspan="5"><audio controls style="width:100%"><source src="./static/audios/sample8/mixture.mp3" type="audio/mpeg"></audio></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>Vocals</th>
+            <th>Drums</th>
+            <th>Bass</th>
+            <th>Other</th>
+            <th>Audience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>clean</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/clean_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/clean_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/clean_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/clean_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>rev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/rev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/rev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/rev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/rev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><em>Not supported</em></td>
+          </tr>
+          <tr>
+            <td><strong>noisy</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/noisy_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/noisy_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/noisy_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/noisy_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/noisy_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>noisyrev</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/noisyrev_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/noisyrev_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/noisyrev_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/noisyrev_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/noisyrev_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+          <tr>
+            <td><strong>SAM Audio</strong></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/sam_vocals.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/sam_drums.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/sam_bass.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/sam_other.mp3" type="audio/mpeg"></audio></td>
+            <td><audio controls style="width:140px"><source src="./static/audios/sample8/sam_audience.mp3" type="audio/mpeg"></audio></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    
+
+
+  </div>
+</section>
+
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
