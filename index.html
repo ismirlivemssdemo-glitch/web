@@ -279,13 +279,12 @@
         <div class="content has-text-justified">
           <h2 class="title is-3">PaRIRset</h2>
           <p>
-            We have synthesized preliminary sing-alongs for every one of the 384 <em>vocals</em> stems in MUSDB18HQ and MOISESDB by combining two techniques. First, we have applied the Antares AVOX Choir plugin (an effect that combines vibrato, detuning and delay) in its 32-voice configuration to each <em>vocals</em> stem. 
+            We propose to simulate the acoustics of modern concerts. We have started from RIR collections commonly used in Speech Enhancement (SE): the ACE Challenge, the MIT IR Survey, and the SLR28 corpus. 
           </p>
           <p>
-            Second, we have sourced a pool of 200 vocal samples from Freesound using the queries <em>a cappella</em> and <em>vocals</em>, and used each to convert every <em>vocals</em> stem using the pre-trained zero-shot voice conversion model HQ-SVC.
-          </p>
+            However, these RIRs are limited for our purposes in two ways: first, the rooms captured (offices, classrooms, lecture halls) bear little resemblance to concert venues; second, modern live sound is delivered through a Public Address (PA) system with separate left and right loudspeaker arrays for stereo reproduction, a configuration absent from SE datasets. 
           <p>
-            We have downloaded 11375 audio files from Freesound using the queries <em>crowd</em>, <em>audience</em>,<em>cheering  </em>, <em>applause</em>, <em>chatter</em>, and <em>protest</em>.
+            We therefore measured our own set of impulse responses, which we call \emph{Public Address Room Impulse Response Set} (PaRIRset)--- the first dataset of real RIRs captured in professional concert venues with PA systems.
           </p>
         </div>
       </div>
